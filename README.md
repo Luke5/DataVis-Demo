@@ -1,10 +1,13 @@
 # DataVis-Demo
+
+[Check out the Demo-Application online!](https://luke5.github.io/DataVis-Demo/ "Demo Application")
+
 ## Project presentation of a web based data visualisation of a multivariate data-set using parallel coordinates
 This application visualises personal data using parallel coordinates. Parallel coordinates are a visualisation technique introduced by Inselberg in 1990 that enables multivariate data to be displayed in two-dimensional space. The individual attributes of an n-dimensional data set are mapped to one coordinate axis each. The coordinate axes are arranged parallel and equidistant to each other, thus enabling all visualised attributes to be treated equally. The value range of each attribute is scaled to the constant height of the coordinate axes. A data object is represented by a polyline that intersects all axes at the height of the respective attribute value.
 
 The following figure shows an example of a visualisation with parallel coordinates based on the application presented.
 
-![Example of a parallel coordinates plot as used in the application](https://github.com/Luke5/DataVis-Demo/assets/15120204/9659042d-0ab6-4142-a4ac-40264cb84ad7)
+![Example_of_PCP](https://github.com/Luke5/DataVis-Demo/assets/15120204/9659042d-0ab6-4142-a4ac-40264cb84ad7 "Example of a parallel coordinates plot as used in the application")
 
 ### Advantages
 - Good overview of value distributions
@@ -71,7 +74,7 @@ During data collection, each of the five team members recorded personal data in 
 
 ## Features
 
-![overview left part](https://github.com/Luke5/DataVis-Demo/assets/15120204/557c649c-a86c-43f0-9470-47f1e3008ee1)
+![left_part](https://github.com/Luke5/DataVis-Demo/assets/15120204/557c649c-a86c-43f0-9470-47f1e3008ee1 "left part of the UI")
 
 
 ### Selecting and rearranging axes
@@ -90,7 +93,7 @@ Colouring makes it easier to identify correlations between the coloured attribut
 
 The large number of data lines displayed makes it essential to filter the data set in order to recognise details in the data. Parallel coordinates are usually filtered by interactively restricting the value range of individual axes (so-called brushing). By "crossing out" the desired value range on the axis with the mouse, only those lines whose values of the brushed attribute lie within this value range are highlighted. Filtering with interrupted value ranges on axes is made possible by multibrushing. In addition, four different brush modes (And, Or, Nand and Nor) have been implemented to create customised filters, which can be set via the menu at the top of the screen. The mode of operation of the individual brush modes is explained in the following figure. Filters created with Brushing form the basis for Keep and Extract operations and also influence the display of box plots.
 
-![Comparison of different brush modes (example)](https://github.com/Luke5/DataVis-Demo/assets/15120204/a1d6a8b3-2eb8-4d66-9f4f-58fe06920587)
+![Comparison](https://github.com/Luke5/DataVis-Demo/assets/15120204/a1d6a8b3-2eb8-4d66-9f4f-58fe06920587 "Comparison of different brush modes (example)")
 
 > Top left: **AND-Brushing (default)**: only lines for which `Person = Lukas` or `Person = Marc` and `Lunch = meat` are highlighted  
 > Top right: **OR-Brushing**: Lines with `Person = Lukas`, lines with `Person = Marc` and lines with `Lunch = meat` are highlighted  
@@ -126,7 +129,7 @@ In the set of data lines, it is difficult to compare and track two data lines. T
 
 The star plot is linked to the concept of hovering and selecting data lines and works in the same way. It provides an additional form of visualisation of information.
 
-![right part](https://github.com/Luke5/DataVis-Demo/assets/15120204/71f7c94d-4b7d-4648-a499-2ae7834849c2)
+![right_part](https://github.com/Luke5/DataVis-Demo/assets/15120204/71f7c94d-4b7d-4648-a499-2ae7834849c2 "right part of the UI")
 
 The exact attribute values for a hovered data object are shown categorised in an accordion to the right of the star plot. If a data line has also been selected by clicking on it, its attribute values are also displayed next to those of the hovered line to make it easier to effectively compare two data objects. The data line that was clicked last is always selected.
 
