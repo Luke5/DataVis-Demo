@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/materialize.min.css" media="screen,projection">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css" media="screen,projection">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="js/d3.min.js"></script>
+    <script src="js/components/RadarChart.js"></script>
+</head>
+
+<body class="blue-grey darken-4">
+    <nav class="blue-grey darken-3" role="navigation">
+        <ul id="slide-out" class="side-nav">
+            <li class="itemSpecial">
+                <a id="colorSelection" class='dropdown-button' data-beloworigin="true" href='#' data-activates='dropdown1'>Colorization: None</a>
+                <ul id='dropdown1' class='dropdown-content'>
+                    <li><a class="colorSelect" href="#!" data-value="none">None</a></li>
+                    <li><a class="colorSelect" href="#!" data-value="person">Person</a></li>
+                    <li><a class="colorSelect" href="#!" data-value="lunchWhat">Lunch what?</a></li>
+                    <li><a class="colorSelect" href="#!" data-value="day">Week day</a></li>
+                </ul>
+            </li>
+            <li class="itemSpecial">
+                <ul class="collapsible collapsible-accordion">
+                    <li>
+                        <a class="collapsible-header linkPadding">Show/Hide axes<i class="material-icons right right-align">arrow_drop_down</i></a>
+                        <div class="collapsible-body">
+                            <ul id="menu-checkboxes"></ul>
+                        </div>
+                    </li>
+                    <li class="divider"></li>
+                </ul>
+            </li>
+            <li class="bold itemSpecial">
+                <a href="#!" class="waves-effect waves-teal">
+                    <div class="switch">
+                        <label>
+                            Enable sticky axis dragging
+                            <div class="pull-right">
+                                <input type="checkbox" id="sticky_dragging_checkbox" name="sticky_dragging_checkbox" value="sticky_dragging">
+                                <span class="lever"></span>
+                            </div>
+                        </label>
+                    </div>
+                </a>
+            </li>
+            <li class="bold itemSpecial">
+                <a href="#!" class="waves-effect waves-teal">
+                    <div class="switch">
+                        <label>
+                            Enable details on demand
+                            <div class="pull-right">
+                                <input type="checkbox" id="dod_checkbox" name="dod_checkbox" value="dod" checked>
+                                <span class="lever"></span>
+                            </div>
+                        </label>
+                    </div>
+                </a>
+            </li>
+            <li class="bold"><a href="#resetViewModal" class="waves-effect waves-teal">Reset view</a></li>
+        </ul>
+        <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i id="menu" class="material-icons">menu</i></a>
+        <div class="nav-wrapper">
+            <a href="#!" class="brand-logo hide-on-med-and-down smallSize">Parallel Coordinates</a>
+            <ul class="right">
+                <li><a class="waves-effect" id="btn_historyback"><i class="material-icons">undo</i></a></li>
+                <li><a class="waves-effect" id="btn_keep">Keep</a></li>
+                <li><a class="waves-effect" id="btn_extract">Extract</a></li>
+                <!-- Dropdown Trigger -->
+                <li><a id="brushmodeSelection" class='dropdown-button waves-effect' data-beloworigin="true" href='#' data-activates='dropdown2'>Brush Mode: AND<i class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a class="waves-effect" onclick="helpMe2()"><i class="material-icons">help</i></a></li>
+                <ul id='dropdown2' class='dropdown-content'>
+                    <li><a class="brushmodeSelect" href="#!" data-value="and">AND</a></li>
+                    <li><a class="brushmodeSelect" href="#!" data-value="or">OR</a></li>
+                    <li><a class="brushmodeSelect" href="#!" data-value="nand">NAND</a></li>
+                    <li><a class="brushmodeSelect" href="#!" data-value="nor">NOR</a></li>
+                    <li class="divider"></li>
+                </ul>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="section">
+            <div class="row">
+                <div style="position:relative;" class="col s12 l9 xl7" id="ChartContainer">
+                    <i id="invert" style="position: absolute; display: none; left: 21%;" class="medium material-icons">autorenew</i>
+                    <i id="swap" style="position: absolute; display: none; left: 48%;" class="medium material-icons">swap_horiz</i>
+                    <i id="brush" style="position: absolute; display: none; left: 21%; top: 50%;" class="medium material-icons">brush</i>
+                    <svg class="chart"></svg>
+                </div>
+                <div class="col s12 l3 xl5" id="DodContainer">
+                    <div class="row">
+                        <div class="col s12 m6 l12 xl6">
+                            <ul class="collection" style="border-color: #aaaaaa;">
+                                <li class="collection-item avatar blue-grey darken-3" style="color:#bbdefb; border-color: #aaaaaa;">
+                                    <i id="hoverIcon" class="material-icons circle" style="background-color:#bbdefb;">face</i>
+                                    <span class="title" id="person1"> </span>
+                                    <p><span id="day1"></span> - <span id="date1"></span></p>
+                                    <div hidden="true">
+                                        <p id="timeInUniversity1"></p>
+                                        <p id="timePc1"></p>
+                                        <p id="timePhone1"></p>
+                                        <p id="timeWorked1"></p>
+                                        <p id="timeSport1"></p>
+                                    </div>
+                                    <a style="cursor:pointer;" onclick="clearComparison(1);" class="secondary-content"><i class="material-icons" style="color: #aaaaaa">close</i></a>
+                                </li>
+                                <li class="collection-item blue-grey darken-4" id="starPlot">
+                                </li>
+                                <li class="collection-item avatar blue-grey darken-3" style="color:#fb8c00; border-color: #aaaaaa;">
+                                    <i id="clickIcon" class="material-icons circle" style="background-color:#fb8c00;">face</i>
+                                    <span class="title" id="person0"> </span>
+                                    <p><span id="day0"></span> - <span id="date0"></span></p>
+                                    <div hidden="true">
+                                        <p id="timeInUniversity0"></p>
+                                        <p id="timePc0"></p>
+                                        <p id="timePhone0"></p>
+                                        <p id="timeWorked0"></p>
+                                        <p id="timeSport0"></p>
+                                    </div>
+                                    <a style="cursor:pointer;" onclick="clearComparison(0);" class="secondary-content"><i class="material-icons" style="color:  #aaaaaa">close</i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col s12 m6 l12 xl6">
+                            <ul class="collapsible" data-collapsible="accordion" style="border-color: #aaaaaa;">
+                                <li>
+                                    <div class="collapsible-header active blue-grey darken-3" style="color: #ffffff; border-color: #aaaaaa;"><i id="table" class="material-icons">alarm</i>Sleeping Habit</div>
+                                    <div class="collapsible-body" style="border-color: #aaaaaa;">
+                                        <table class="centered responsive-table light-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Woke up</th>
+                                                    <th>Bed Time</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td id="wokeUp1"></td>
+                                                    <td id="wentToSleep1"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td id="wokeUp0"></td>
+                                                    <td id="wentToSleep0"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="collapsible-header blue-grey darken-3" style="color: #ffffff; border-color: #aaaaaa;"><i class="material-icons">local_dining</i>Diet</div>
+                                    <div class="collapsible-body" style="border-color: #aaaaaa;">
+                                        <table class="centered responsive-table light-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>When?</th>
+                                                    <th>What?</th>
+                                                    <th>Where?</th>
+                                                    <th>Alcohol</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td id="lunchWhen1"></td>
+                                                    <td id="lunchWhat1"></td>
+                                                    <td id="lunchWhere1"></td>
+                                                    <td id="alcohol1"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td id="lunchWhen0"></td>
+                                                    <td id="lunchWhat0"></td>
+                                                    <td id="lunchWhere0"></td>
+                                                    <td id="alcohol0"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="collapsible-header blue-grey darken-3" style="color: #ffffff; border-color: #aaaaaa;"><i class="material-icons">location_city</i>Everyday Life</div>
+                                    <div class="collapsible-body" style="border-color: #aaaaaa;">
+                                        <table class="centered responsive-table light-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Doors</th>
+                                                    <th>Stairs</th>
+                                                    <th>Streets</th>
+                                                    <th>Distance</th>
+                                                    <th>Money spent</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td id="doors1"></td>
+                                                    <td id="stairs1"></td>
+                                                    <td id="streets1"></td>
+                                                    <td id="kilometer1"></td>
+                                                    <td id="moneySpent1"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td id="doors0"></td>
+                                                    <td id="stairs0"></td>
+                                                    <td id="streets0"></td>
+                                                    <td id="kilometer0"></td>
+                                                    <td id="moneySpent0"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="collapsible-header blue-grey darken-3" style="color: #ffffff; border-color: #aaaaaa;"><i class="material-icons">group</i>Social</div>
+                                    <div class="collapsible-body">
+                                        <table class="centered responsive-table light-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>People met</th>
+                                                    <th>Happiness</th>
+                                                    <th>Clothing Color</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td id="contactPeople1"></td>
+                                                    <td id="happiness1"></td>
+                                                    <td id="colorTop1"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td id="contactPeople0"></td>
+                                                    <td id="happiness0"></td>
+                                                    <td id="colorTop0"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="resetViewModal" class="modal">
+        <div class="modal-content">
+            <h5><p class="center">You are about to reset your current view. All selections and changes made will be lost.</p></h5>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" id="btn_resetview" class="modal-action modal-close waves-effect waves-green btn-flat pull-left">Reset View</a>
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+        </div>
+    </div>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script>
+    $(document).ready(function() {
+
+        $('.button-collapse').sideNav({
+            menuWidth: 300, // Default is 240
+            closeOnClick: false // Closes side-nav on <a> clicks, useful for Angular/Meteor
+        });
+        $('.collapsible').collapsible();
+        $('.modal').modal({
+            dismissible: true, // Modal can be dismissed by clicking outside of the modal
+            opacity: .5, // Opacity of modal background
+            inDuration: 300, // Transition in duration
+            outDuration: 200, // Transition out duration
+            startingTop: '4%', // Starting top style attribute
+            endingTop: '10%', // Ending top style attribute
+        });
+
+        $(".colorSelect").click((e) => {
+            e.preventDefault();
+            changeColorization($(e.currentTarget).data("value"));
+            $("#colorSelection").html("Colorization: " + $(e.currentTarget).html());
+        });
+
+        $(".brushmodeSelect").click((e) => {
+            e.preventDefault();
+            brushMode = $(e.currentTarget).data("value");
+            //if there is already an existing brush, update it when brushmode is changed
+            let existingBrush = d3.selectAll(".brush").nodes().find(function(node) {
+                return d3.brushSelection(node);
+            });
+            if (existingBrush) {
+                onBrush();
+            }
+            $("#brushmodeSelection").html("Brush Mode: " + $(e.currentTarget).html() + '<i class="material-icons right">arrow_drop_down</i>');
+        });
+
+        $("#dod_checkbox").click(function(e) {
+            let nowChecked = d3.select(e.currentTarget).property("checked");
+            d3.select("#DodContainer").classed("hide", !d3.select("#DodContainer").classed("hide") && !nowChecked);
+            if (nowChecked) {
+                d3.select("#ChartContainer").attr("class", "col s12 l9 xl7");
+            } else {
+                d3.select("#ChartContainer").attr("class", "col s12 l12 xl12");
+            }
+            calculateChartWidthHeight();
+            updateAxesVisibilityAndPosition();
+            updateDataObjects();
+
+        });
+    });
+    </script>
+    <script type="text/javascript" src="js/components/axis_overlay.js"></script>
+    <script type="text/javascript" src="js/components/boxplot.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <div onclick="switchNow();" class="modal-overlay" id="opac-overlay" style="z-index: 100; display: none; opacity: 0;"></div>
+    <div onclick="switchNow();" class="tap-target menuHelp" data-activates="menu">
+        <div class="tap-target-content white-text">
+            <h5>Options in the Sidebar</h5>
+            <p>Here you can show and hide axes, colorize data objects and edit further settings...</p>
+        </div>
+    </div>
+    <div onclick="switchNow();" class="tap-target clickHelp" data-activates="clickIcon">
+        <div class="tap-target-content white-text">
+            <h5>Click an Object</h5>
+            <p>If you click any data object it will appear here. Take a look at the starplot and the table on the side for further details and comparison...</p>
+        </div>
+    </div>
+    <div onclick="switchNow();" class="tap-target hoverHelp" data-activates="hoverIcon">
+        <div class="tap-target-content white-text">
+            <h5>Hover an Object</h5>
+            <p>If you hover over any data object it will appear here. Take a look at the starplot and the table on the side for further details and comparison to the clicked object...</p>
+        </div>
+    </div>
+    <div onclick="switchNow();" class="tap-target tableHelp" data-activates="table">
+        <div class="tap-target-content white-text">
+            <h5>Comparison Table</h5>
+            <p>Selected data objects will be categorized and compared here in detail...</p>
+        </div>
+    </div>
+    <div onclick="switchNow();" class="tap-target invertHelp" data-activates="invert">
+        <div class="tap-target-content white-text">
+            <h5>Click an Axis</h5>
+            <p>By clicking any axis you can invert it or show a corresponding boxplot...</p>
+        </div>
+    </div>
+    <div onclick="switchNow();" class="tap-target swapHelp" data-activates="swap">
+        <div class="tap-target-content white-text">
+            <h5>Drag an Axis</h5>
+            <p>You can drag any axis to change its place and the order of axes in the diagram...</p>
+        </div>
+    </div>
+    <div onclick="switchNow();" class="tap-target brushHelp" data-activates="brush">
+        <div class="tap-target-content white-text">
+            <h5>Use Brushes</h5>
+            <p>You can use multiple brushes on each axis to select and deselect data objects which meet certain criteria. Take a look at the upper right corner to change the brush mode and keep or extract brushed data objects...</p>
+        </div>
+    </div>
+    <span style="position: fixed; right: 0; bottom: 0;" id="nrBrushedLines" class="new badge" data-badge-caption="lines selected">All</span>
+</body>
+
+</html>

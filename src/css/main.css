@@ -1,0 +1,425 @@
+/* DESIGN */
+
+.itemSpecial > div > label {
+    padding: 0 32px;
+}
+
+.itemSpecial > div > label:hover {
+    background-color: rgba(0, 0, 0, .05);
+}
+
+.itemSpecial label {
+    display: block;
+    width: 100%;
+}
+
+.pull-right {
+    float: right;
+}
+
+.modal .modal-footer .pull-left {
+    float: left;
+}
+
+.side-nav .linkPadding {
+    padding: 0 32px;
+}
+
+
+/* give last item in list margin to fully display it (bug in Firefox) */
+
+.side-nav >:last-child {
+    margin-bottom: 60px;
+}
+
+.switch label input[type="checkbox"][disabled]:checked + .lever {
+    background-color: #BDBDBD;
+}
+
+.btn-small {
+    font-size: 0.8rem;
+    height: 15px;
+    line-height: 15px;
+    padding: 0 0.5rem;
+}
+
+.btn.bigfont {
+    font-size: 35px;
+    line-height: 33px;
+}
+
+nav .brand-logo.smallSize {
+    font-size: 1.5rem;
+}
+
+
+/* PCP */
+
+.dataLine {
+    stroke-width: 1px;
+    stroke: #1b461b;
+    fill: none;
+}
+
+.dataLine.colored:hover {
+    stroke: #bbdefb;
+    stroke-width: 3px;
+}
+
+.axisOverlay {
+    width: 85px;
+    height: 85px;
+    border-radius: 5px;
+    position: absolute;
+    display: inherit;
+    opacity: 1;
+}
+
+.axisOverlay div {
+    position: relative;
+    left: 5px;
+    top: 5px;
+}
+
+.axisOverlay div a.btn-small {
+    left: 20%;
+}
+
+.axisOverlay div input[type="checkbox"] + label::before,
+.axisOverlay div input[type="checkbox"]:not(.filled-in) + label::after {
+    border-color: #fff;
+}
+
+.axisOverlay div input[type="checkbox"]:checked + label::before {
+    border-top-color: transparent;
+    border-left-color: transparent;
+}
+
+.axisOverlay div input[type="checkbox"] + label::before,
+.axisOverlay div input[type="checkbox"]:not(.filled-in) + label::after,
+.axisOverlay div input[type="checkbox"]:checked + label::before {
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+
+.axisOverlay div label {
+    padding-left: 24px;
+    color: #fff;
+}
+
+.dataHoverObject {
+    opacity: 1;
+}
+
+.dataHoverObject rect {
+    display: inherit;
+    fill: #546e7a;
+    stroke: #455a64;
+    stroke-width: 3px;
+    stroke-opacity: 1;
+    fill-opacity: 1;
+}
+
+.dataHoverObjectKeyText {
+    font-family: sans-serif;
+    font-weight: bolder;
+    font-size: 11px;
+    fill: white;
+    opacity: 1;
+}
+
+.dataHoverObjectValueText {
+    font-family: sans-serif;
+    font-size: 10px;
+    fill: white;
+}
+
+.boxplot .whisker,
+.boxplot .whiskerLine {
+    fill: #d50000       ;
+}
+
+.boxplot .median {
+    fill: #ef5350;
+    stroke-width: 0;
+}
+
+.boxplot .box {
+    stroke: #d50000       ;
+    fill: none;
+}
+
+.boxplot .boxBackground {
+    fill: #263238;
+}
+
+.visible {
+    display: block;
+}
+
+.invisible {
+    display: none;
+}
+
+.hide {
+    display: none;
+}
+
+.axis .tick > line,
+.axis > g > path {
+    stroke: #fff;
+}
+
+.label,
+.tick text {
+    fill: #fff;
+    font-family: sans-serif;
+}
+
+.nrBrushedLines {
+    color: #ffffff;
+    text-align: right;
+}
+
+
+/* COLORS */
+
+.colored.c_red {
+    stroke: #ef5350;
+}
+
+.colored.c_pink {
+    stroke: #ec407a;
+}
+
+.colored.c_purple {
+    stroke: #ab47bc;
+}
+
+.colored.c_indigo {
+    stroke: #5c6bc0;
+}
+
+.colored.c_blue {
+    stroke: #42a5f5;
+}
+
+.colored.c_lightblue {
+    stroke: #29b6f6;
+}
+
+.colored.c_cyan {
+    stroke: #26c6da;
+}
+
+.colored.c_teal {
+    stroke: #26a96a;
+}
+
+.colored.c_green {
+    stroke: #66bb6a;
+}
+
+.colored.c_lightgreen {
+    stroke: #9ccc65;
+}
+
+.colored.c_yellow {
+    stroke: #ffee58;
+}
+
+.colored.c_amber {
+    stroke: #ffca28;
+}
+
+.colored.c_deeporange {
+    stroke: #ff7043;
+}
+
+
+/* default color */
+
+.colored.c_base {
+    stroke: #388e3c;
+}
+
+.colored.selected {
+    stroke-width: 3px;
+    stroke: #fb8c00;
+    -webkit-filter: drop-shadow( 0px 0px 2px #000 );
+            filter: drop-shadow( 0px 0px 2px #000 );
+}
+
+
+.light-table {
+    color: white;
+    font-size: 12px;
+}
+
+tbody tr:first-child td {
+    color: #bbdefb;
+}
+
+tbody tr td {
+    color: #fb8c00;
+}
+
+.collapsible-body {
+    padding: 10px;
+}
+
+table.responsive-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    display: block;
+    position: relative;
+    /* sort out borders */
+}
+
+table.responsive-table td:empty:before {
+    content: '\00a0';
+}
+
+table.responsive-table th,
+table.responsive-table td {
+    margin: 0;
+    vertical-align: top;
+}
+
+table.responsive-table th {
+    text-align: left;
+}
+
+table.responsive-table thead {
+    display: block;
+    float: left;
+}
+
+table.responsive-table thead tr {
+    display: block;
+    padding: 0 10px 0 0;
+}
+
+table.responsive-table thead tr th::before {
+    content: "\00a0";
+}
+
+table.responsive-table tbody {
+    display: block;
+    width: auto;
+    position: relative;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+table.responsive-table tbody tr {
+    display: inline-block;
+    vertical-align: top;
+    padding: 0px;
+}
+
+table.responsive-table th {
+    display: block;
+    text-align: right;
+}
+
+table.responsive-table td {
+    display: block;
+    min-height: 1.25em;
+    text-align: left;
+}
+
+table.responsive-table tr {
+    padding: 0 10px;
+}
+
+table.responsive-table thead {
+    border: 0;
+    border-right: 1px solid #d0d0d0;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 1500px;
+    width: 95%;
+}
+
+@media only screen and (min-width: 601px) {
+    .container {
+        width: 90%;
+    }
+}
+
+@media only screen and (min-width: 993px) {
+    .container {
+        width: 85%;
+    }
+}
+
+
+/*Tutorial Style*/
+
+.tap-target {
+    background-color: #00acc1;
+}
+
+
+/*Starplot Style*/
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 1px;
+    stroke-opacity: 1;
+    shape-rendering: crispEdges;
+}
+.axis text {
+    fill: #ffffff;
+    font-family: sans-serif;
+    font-size: 11px;
+}
+
+#starPlot {
+    padding: 0px;
+}
+
+.circular_line {
+    stroke: #ffffff;
+    stroke-opacity: 0.75;
+    stroke-width: 0.3px;
+}
+
+.toolTip {
+    pointer-events: none;
+    position: absolute;
+    display: none;
+    min-width: 50px;
+    height: auto;
+    background: none repeat scroll 0 0 #ffffff;
+    padding: 9px 14px 6px 14px;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 1.3;
+    color: #5B6770;
+    box-shadow: 0px 3px 9px rgba(0, 0, 0, .15);
+}
+
+.toolTip:after {
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 12px solid white;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    margin-left: -12px;
+}
+
+.toolTip span {
+    font-weight: 500;
+    color: #081F2C;
+}
