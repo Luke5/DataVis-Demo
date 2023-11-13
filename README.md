@@ -74,14 +74,15 @@ During data collection, each of the five team members recorded personal data in 
 
 ## Features
 
-![left_part](https://github.com/Luke5/DataVis-Demo/assets/15120204/557c649c-a86c-43f0-9470-47f1e3008ee1 "left part of the UI")
-
+![Features](https://github.com/Luke5/DataVis-Demo/assets/15120204/3a173e95-ebe6-4d6e-9a7c-32b8978494a0 "Features of the application")
 
 ### Selecting and rearranging axes
 
 Due to the limited screen space, only a limited number of axes can be displayed next to each other at the same time without restrictions. The maximum number of axes displayed here is limited to seven. The user has the option of selecting and deselecting individual axes according to their interests via the sidebar. Axes can also be deactivated directly via the axis overlay. 
 
 If correlations between attribute axes are to be read off, it is necessary to visually trace the lines between the axes. With identical line styles, this is only possible without restriction between directly neighbouring axes. Axes can therefore be moved horizontally as required using drag & drop on the axis name and can be reorganised. For example, by always arranging qualitative and quantitative axes alternately, it is also possible to "fan out" lines that would otherwise run on top of each other.
+
+![left_part](https://github.com/Luke5/DataVis-Demo/assets/15120204/557c649c-a86c-43f0-9470-47f1e3008ee1 "left part of the UI")
 
 ### Colorisation
 
